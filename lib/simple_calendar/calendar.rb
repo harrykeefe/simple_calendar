@@ -7,7 +7,7 @@ module SimpleCalendar
     attr_accessor :view_context, :options
 
     def initialize(view_context, opts={})
-      @view_context = view_context
+      @view_conxtext = view_context
       @options = opts
 
       @params = @view_context.respond_to?(:params) ? @view_context.params : Hash.new
@@ -23,7 +23,8 @@ module SimpleCalendar
           calendar: self,
           date_range: date_range,
           start_date: start_date,
-          sorted_events: sorted_events
+          sorted_events: sorted_events,
+          multi_events: multi_sorted_events
         }
       )
     end
@@ -71,6 +72,21 @@ module SimpleCalendar
         events = options.fetch(:events, []).sort_by(&attribute)
         scheduled = events.reject { |e| e.send(attribute).nil? }
         group_events_by_date(scheduled)
+      end
+      def multi_sorted_events
+        multi_events = options.fetch(:multi_events)
+
+        scheduled = {
+          pending_add: multi_events.fetch(:pending_add, []).sort_by(&attribute),
+          pending_confirmation: multi_events.fetch(:pending_confirmation, []).sort_by(&attribute),
+          confirmed_schedules: multi_events.fetch(:confirmed_schedules, []).sort_by(&attribute),
+          upcoming_schedules: multi_events.fetch(:upcoming_schedules, []).sort_by(&attribute)
+        }
+        scheduled.each do |k, v|
+          v.reject { |e| e.send(attribute).nil? }
+          scheduled[k] = group_events_by_date(v)
+        end
+        return scheduled
       end
 
       def group_events_by_date(events)
