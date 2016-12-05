@@ -87,6 +87,7 @@ module SimpleCalendar
         scheduled[:confirmed_schedules] = group_events_by_date(scheduled[:confirmed_schedules])
         scheduled[:upcoming_schedules] = group_events_by_date(scheduled[:upcoming_schedules])
         scheduled[:pending_add] = group_events_by_date(scheduled[:pending_add])
+        byebug
 
         return scheduled
       end
