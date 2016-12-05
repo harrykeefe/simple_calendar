@@ -82,12 +82,13 @@ module SimpleCalendar
         scheduled[:confirmed_schedules] = multi_events.fetch(:confirmed_schedules, []).sort_by(&attribute)
         scheduled[:upcoming_schedules] = multi_events.fetch(:upcoming_schedules, []).sort_by(&attribute)
         scheduled[:pending_add] = multi_events.fetch(:pending_add, []).sort_by(&attribute)
-
+        byebug
+        
         scheduled[:pending_confirmation] = group_events_by_date(scheduled[:pending_confirmation])
         scheduled[:confirmed_schedules] = group_events_by_date(scheduled[:confirmed_schedules])
         scheduled[:upcoming_schedules] = group_events_by_date(scheduled[:upcoming_schedules])
         scheduled[:pending_add] = group_events_by_date(scheduled[:pending_add])
-        byebug
+
 
         return scheduled
       end
