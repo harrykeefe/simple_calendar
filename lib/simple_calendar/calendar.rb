@@ -7,7 +7,7 @@ module SimpleCalendar
     attr_accessor :view_context, :options
 
     def initialize(view_context, opts={})
-      @view_conxtext = view_context
+      @view_context = view_context
       @options = opts
 
       @params = @view_context.respond_to?(:params) ? @view_context.params : Hash.new
@@ -23,9 +23,8 @@ module SimpleCalendar
           calendar: self,
           date_range: date_range,
           start_date: start_date,
-          sorted_events: sorted_events
-
-          #multi_events: multi_sorted_events
+          sorted_events: sorted_events,
+          multi_events: multi_sorted_events
         }
       )
     end
