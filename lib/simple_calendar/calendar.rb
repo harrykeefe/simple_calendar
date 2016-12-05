@@ -74,7 +74,7 @@ module SimpleCalendar
         group_events_by_date(scheduled)
       end
       def multi_sorted_events
-        multi_events = options.fetch(:multi_events)
+        multi_events = options.fetch(:multi_events, {})
 
         scheduled = {
           pending_add: multi_events.fetch(:pending_add, []).sort_by(&attribute),
