@@ -83,10 +83,6 @@ module SimpleCalendar
         scheduled[:upcoming_schedules] = multi_events.fetch(:upcoming_schedules, []).sort_by(&attribute)
         scheduled[:pending_add] = multi_events.fetch(:pending_add, []).sort_by(&attribute)
 
-        scheduled.each do |k, v|
-          v.reject { |e| e.send(attribute).nil? }
-        end
-
         scheduled[:pending_confirmation] = group_events_by_date(scheduled[:pending_confirmation])
         scheduled[:confirmed_schedules] = group_events_by_date(scheduled[:confirmed_schedules])
         scheduled[:upcoming_schedules] = group_events_by_date(scheduled[:upcoming_schedules])
