@@ -78,16 +78,20 @@ module SimpleCalendar
 
         scheduled = { pending_add: [], pending_confirmation: [], confirmed_schedules: [], upcoming_schedules: [] }
 
-        scheduled[:pending_confirmation] multi_events.fetch(:pending_confirmation, []).sort_by(&attribute)
-        scheduled[:confirmed_schedules] multi_events.fetch(:confirmed_schedules, []).sort_by(&attribute)
-        scheduled[:upcoming_schedules] multi_events.fetch(:upcoming_schedules, []).sort_by(&attribute)
+        scheduled[:pending_confirmation] = multi_events.fetch(:pending_confirmation, []).sort_by(&attribute)
+        scheduled[:confirmed_schedules] = muti_events.fetch(:confirmed_schedules, []).sort_by(&attribute)
+        scheduled[:upcoming_schedules] = multi_events.fetch(:upcoming_schedules, []).sort_by(&attribute)
         scheduled[:pending_add] = multi_events.fetch(:pending_add, []).sort_by(&attribute)
 
         scheduled.each do |k, v|
           v.reject { |e| e.send(attribute).nil? }
-          scheduled[k] = group_events_by_date(v)
         end
-        byebug
+
+        scheduled[:pending_confirmation] = group_events_by_date(scheduled[:pending_confirmation])
+        scheduled[:confirmed_schedules] = group_events_by_date(scheduled[:confirmed_schedules])
+        scheduled[:upcoming_schedules] = group_events_by_date(scheduled[:upcoming_schedules])
+        scheduled[:pending_add] = group_events_by_date(scheduled[:pending_add])
+
         return scheduled
       end
 
