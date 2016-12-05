@@ -79,7 +79,7 @@ module SimpleCalendar
         scheduled = { pending_add: [], pending_confirmation: [], confirmed_schedules: [], upcoming_schedules: [] }
 
         scheduled[:pending_confirmation] = multi_events.fetch(:pending_confirmation, []).sort_by(&attribute)
-        scheduled[:confirmed_schedules] = muti_events.fetch(:confirmed_schedules, []).sort_by(&attribute)
+        scheduled[:confirmed_schedules] = multi_events.fetch(:confirmed_schedules, []).sort_by(&attribute)
         scheduled[:upcoming_schedules] = multi_events.fetch(:upcoming_schedules, []).sort_by(&attribute)
         scheduled[:pending_add] = multi_events.fetch(:pending_add, []).sort_by(&attribute)
 
