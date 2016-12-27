@@ -30,7 +30,7 @@ module SimpleCalendar
       )
     end
 
-    def td_classes_for(day, extra_class)
+    def td_classes_for(day, extra_class = nil)
       today = Date.current
 
       td_class = ['day']
