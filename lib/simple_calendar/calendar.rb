@@ -30,7 +30,7 @@ module SimpleCalendar
       )
     end
 
-    def td_classes_for(day)
+    def td_classes_for(day, extra_class)
       today = Date.current
 
       td_class = ['day']
@@ -43,6 +43,7 @@ module SimpleCalendar
       td_class << 'next-month'    if start_date.month != day.month && day > start_date
       td_class << 'current-month' if start_date.month == day.month
       td_class << 'has-events'    if sorted_events.fetch(day, []).any?
+      td_class << extra_class     if !extra_class.blank?
 
       td_class
     end
