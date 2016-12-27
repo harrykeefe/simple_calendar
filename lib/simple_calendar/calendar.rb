@@ -24,7 +24,8 @@ module SimpleCalendar
           date_range: date_range,
           start_date: start_date,
           sorted_events: sorted_events,
-          multi_events: multi_sorted_events
+          multi_events: multi_sorted_events,
+          availability: sorted_availability
         }
       )
     end
@@ -89,6 +90,9 @@ module SimpleCalendar
         scheduled[:pending_add] = group_events_by_date(scheduled[:pending_add])
 
         return scheduled
+      end
+      def sorted_availability
+        options.fetch(:availability, {})
       end
 
       def group_events_by_date(events)
